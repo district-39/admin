@@ -8,13 +8,15 @@ function my_custom_landing_setup()
     add_theme_support('post-thumbnails');
     add_theme_support('custom-logo');
     add_theme_support('html5', ['search-form', 'gallery', 'caption']);
+    // Use classic Widgets screen so Home Page Cards widget form (card list, Delete, Add) displays correctly.
+    remove_theme_support('widgets-block-editor');
 }
 add_action('after_setup_theme', 'my_custom_landing_setup');
 
 function my_custom_landing_scripts()
 {
     wp_enqueue_style('custom-style', get_stylesheet_uri(), [], '1.0.0');
-    wp_enqueue_style('custom-css', get_template_directory_uri() . '/assets/css/custom.css', [], '1.0.1');
+    wp_enqueue_style('custom-css', get_template_directory_uri() . '/assets/css/custom.css', [], '1.0.2');
     wp_enqueue_script('custom-js', get_template_directory_uri() . '/assets/js/main.js', ['jquery'], '1.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'my_custom_landing_scripts');
@@ -106,3 +108,62 @@ function crosstalk_exclude_business_nav_on_meetings($items, $args)
     return array_values($filtered);
 }
 add_filter('wp_nav_menu_objects', 'crosstalk_exclude_business_nav_on_meetings', 10, 2);
+
+/**
+ * Home page widget area and Card widgets.
+ */
+require_once get_template_directory() . '/inc/class-crosstalk-card-widget.php';
+require_once get_template_directory() . '/inc/class-crosstalk-cards-widget.php';
+
+function crosstalk_register_sidebar()
+{
+    register_sidebar([
+        'id'            => 'home_cards',
+        'name'          => __('Home Page Cards', 'crosstalk'),
+        'description'   => __('Expand this area first (click “Home Page Cards” or the arrow). Then use “Add widget” or “Add block” and select “Home Page Cards”. The form with “+ Add another card” opens inside that widget.', 'crosstalk'),
+        'before_widget' => '<div class="crosstalk-cards-column">',
+        'after_widget'  => '</div>',
+        'before_title'  => '',
+        'after_title'   => '',
+        'class'         => 'crosstalk-sidebar-home-cards',
+    ]);
+}
+add_action('widgets_init', 'crosstalk_register_sidebar');
+
+function crosstalk_register_card_widget()
+{
+    register_widget('Crosstalk_Card_Widget');
+    register_widget('Crosstalk_Cards_Widget');
+}
+add_action('widgets_init', 'crosstalk_register_card_widget');
+
+function crosstalk_widget_admin_scripts($hook)
+{
+    if ($hook !== 'widgets.php' && $hook !== 'customize.php') {
+        return;
+    }
+    wp_enqueue_media();
+    wp_enqueue_script('media-views');
+    wp_enqueue_script('media-models');
+    wp_enqueue_style(
+        'crosstalk-widget-card-admin',
+        get_template_directory_uri() . '/assets/css/widget-card-admin.css',
+        [],
+        '1.0.2'
+    );
+    wp_enqueue_script(
+        'crosstalk-widget-card',
+        get_template_directory_uri() . '/assets/js/widget-card.js',
+        ['jquery', 'media-upload', 'media-views', 'media-models'],
+        '1.0.4',
+        true
+    );
+    wp_enqueue_script(
+        'crosstalk-widget-cards',
+        get_template_directory_uri() . '/assets/js/widget-cards.js',
+        ['jquery', 'jquery-ui-sortable'],
+        '1.0.2',
+        true
+    );
+}
+add_action('admin_enqueue_scripts', 'crosstalk_widget_admin_scripts');

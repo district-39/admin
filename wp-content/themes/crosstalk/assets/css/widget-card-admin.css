@@ -1,0 +1,146 @@
+/* Crosstalk Card widget: crop panel (16:9 selection) */
+.crosstalk-card-crop-panel {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: #e5f5fa;
+  border: 1px solid #0284c7;
+  border-radius: 4px;
+}
+.crosstalk-card-crop-panel label,
+.crosstalk-card-crop-panel .crosstalk-card-crop-panel-title {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #0369a1;
+}
+.crosstalk-card-crop-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.crosstalk-card-crop-wrap .crosstalk-card-crop-image {
+  vertical-align: top;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.crosstalk-card-crop-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  border: 3px solid #0284c7;
+  background: rgba(2, 132, 199, 0.15);
+  cursor: move;
+  pointer-events: auto;
+}
+.crosstalk-card-crop-box::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px dashed rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+/* Home Page Cards widget: multiple cards, drag to reorder */
+.crosstalk-cards-list {
+  margin-bottom: 1rem;
+}
+.crosstalk-cards-card-block {
+  margin-bottom: 1rem;
+  border: 1px solid #c3c4c7;
+  border-radius: 4px;
+  background: #fff;
+  overflow: hidden;
+}
+.crosstalk-cards-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #f6f7f7;
+  border-bottom: 1px solid #c3c4c7;
+}
+.crosstalk-cards-drag {
+  cursor: move;
+  color: #787c82;
+  font-size: 1.2em;
+  line-height: 1;
+  padding: 2px 4px;
+  user-select: none;
+}
+.crosstalk-cards-drag:hover {
+  color: #1d2327;
+}
+.crosstalk-cards-toggle {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  margin: 0;
+  min-width: 28px;
+  height: 26px;
+  border: 1px solid #c3c4c7;
+  border-radius: 3px;
+  background: #fff;
+  color: #50575e;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.crosstalk-cards-toggle:hover {
+  background: #f0f0f1;
+  color: #1d2327;
+  border-color: #8c8f94;
+}
+.crosstalk-cards-toggle:focus {
+  outline: 1px solid #2271b1;
+  outline-offset: 1px;
+}
+.crosstalk-cards-toggle-icon {
+  display: block;
+  line-height: 1;
+}
+.crosstalk-cards-card-block--collapsed .crosstalk-cards-card-head {
+  border-bottom: none;
+}
+.crosstalk-cards-card-block--collapsed .crosstalk-cards-card-body {
+  display: none;
+}
+.crosstalk-cards-card-title-preview {
+  flex: 1;
+  margin: 0;
+  font-size: 13px;
+  min-width: 0;
+}
+.crosstalk-cards-card-body {
+  padding: 12px;
+}
+.crosstalk-cards-remove {
+  color: #b32d2e !important;
+  border: 1px solid #b32d2e;
+  background: transparent;
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.crosstalk-cards-remove:hover {
+  color: #fff !important;
+  background: #b32d2e;
+  border-color: #b32d2e;
+}
+.crosstalk-cards-placeholder {
+  height: 50px;
+  margin-bottom: 1rem;
+  border: 2px dashed #c3c4c7;
+  border-radius: 4px;
+  background: #f6f7f7;
+}
