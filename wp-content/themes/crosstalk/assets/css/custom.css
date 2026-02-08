@@ -1,0 +1,352 @@
+/* Theme custom styles – typography, colors, layout */
+
+/* AA.org typography: Crete Round (serif) for headings, Roboto (sans) for body and UI */
+@import url("https://fonts.googleapis.com/css2?family=Crete+Round:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+
+/* Professional palette: soft neutrals + cooler, less royal blue (modern product feel) */
+:root {
+  --color-text: #1e293b;
+  --color-heading: #0f172a;
+  --color-bg: #ffffff;
+  --color-border: #e2e8f0;
+  --color-primary: #0284c7;
+  --color-primary-hover: #0369a1;
+  --color-primary-light: #f0f9ff;
+  --color-primary-border: #0ea5e9;
+  --color-bg-gradient-start: #ffffff;
+  --color-bg-gradient-end: #e0f2fe;
+}
+
+/* Document font and base + sticky footer */
+body {
+  font-family: "Roboto", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-gradient-start) 0%,
+    var(--color-bg-gradient-end) 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* Main content grows to push footer down when page is short */
+body > header + * {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Headings: Crete Round (serif), same as aa.org – design choice is serif headings + sans body */
+h1, h2, h3 {
+  font-family: "Crete Round", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-heading);
+}
+
+/* Links (example) */
+a {
+  color: var(--color-primary);
+  font-style: underline;
+}
+a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* Header / footer: keep sans for nav and UI */
+#site-header {
+  font-family: "Roboto", system-ui, sans-serif;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+#header-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+#header-menu .menu-item {
+    list-style: none;
+    margin: 0;
+}
+#header-menu .menu-item a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 1.25rem;
+  padding: 0 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: background-color 0.15s ease, box-shadow 0.2s ease, border-color 0.15s ease;
+}
+#header-menu .menu-item a:hover {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-border);
+  box-shadow:
+    0 0 0 2px rgba(2, 132, 199, 0.12),
+    0 0 12px 4px rgba(2, 132, 199, 0.06),
+    0 0 24px 8px rgba(2, 132, 199, 0.03);
+}
+#header-menu .menu-item a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+/* Current page or parent in header nav */
+#header-menu .menu-item.current-menu-item > a,
+#header-menu .menu-item.current-menu-ancestor > a {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-border);
+}
+/* On home page: don’t highlight any nav item */
+.home #header-menu .menu-item.current-menu-item > a,
+.home #header-menu .menu-item.current-menu-ancestor > a {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+#site-header .site-icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+  min-width: 0;
+}
+#site-header .site-icon-link:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+#site-header .site-icon-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+#site-header .site-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+#site-header .site-header-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+#site-header > nav {
+  margin-left: auto;
+  min-width: 0;
+}
+#site-header .header-nav-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+#site-header .header-nav-group > nav {
+  margin-left: 0;
+}
+#site-header .header-ctas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* AA Meetings app CTA + Built By: only on meetings page, visible on large screens only */
+.header-app-cta,
+.header-builtby-cta {
+  display: none;
+}
+@media (min-width: 769px) {
+  body.post-type-archive-tsml_meeting .header-app-cta {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    background-color: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  body.post-type-archive-tsml_meeting .header-app-cta:hover {
+    background-color: var(--color-primary-hover);
+    color: #fff;
+  }
+  body.post-type-archive-tsml_meeting .header-app-cta:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  body.post-type-archive-tsml_meeting .header-builtby-cta {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    background-color: transparent;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 2px solid var(--color-primary);
+    white-space: nowrap;
+  }
+  body.post-type-archive-tsml_meeting .header-builtby-cta:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+  body.post-type-archive-tsml_meeting .header-builtby-cta:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Hide "Built By Code For Recovery" when narrower than 1005px */
+@media (max-width: 1004px) {
+  body.post-type-archive-tsml_meeting .header-builtby-cta {
+    display: none !important;
+  }
+}
+
+/* Between mobile and desktop: button + nav on same line, group stays right (no gap) */
+@media (min-width: 769px) and (max-width: 1004px) {
+  body.post-type-archive-tsml_meeting #site-header {
+    flex-direction: row;
+    align-items: center;
+  }
+  body.post-type-archive-tsml_meeting #site-header .header-nav-group {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Mobile: stack nav under logo+title, larger touch targets */
+@media (max-width: 768px) {
+  #site-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  #site-header > nav {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  /* Meetings page (mobile only): nav on top, then AA button below */
+  body.post-type-archive-tsml_meeting #site-header .header-nav-group {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  body.post-type-archive-tsml_meeting #site-header .header-nav-group > nav {
+    width: 100%;
+    order: 1;
+  }
+  body.post-type-archive-tsml_meeting #site-header .header-ctas {
+    width: 100%;
+    justify-content: center;
+    order: 2;
+  }
+  body.post-type-archive-tsml_meeting #site-header .header-app-cta {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    background-color: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  body.post-type-archive-tsml_meeting #site-header .header-app-cta:hover {
+    background-color: var(--color-primary-hover);
+    color: #fff;
+  }
+  #header-menu {
+    justify-content: center;
+    max-width: 100%;
+    width: 100%;
+    gap: 0.5rem 1rem;
+  }
+  #site-header .site-icon {
+    width: 48px;
+    height: 48px;
+  }
+  #site-header .site-header-title {
+    font-size: 1.5rem;
+  }
+  #header-menu .menu-item a {
+    font-size: 1.375rem;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Footer */
+#site-footer {
+  font-family: "Roboto", system-ui, sans-serif;
+  border-top: 1px solid var(--color-border);
+  padding: 1rem 0;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+#site-footer .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  min-width: 0;
+  max-width: 100%;
+}
+#site-footer .menu-item {
+  margin: 0;
+}
+#site-footer .footer-category {
+  font-weight: 600;
+}
+#site-footer .footer-page {
+  font-weight: 400;
+}
+#site-footer .nav-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+#site-footer .nav-link:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+#site-footer .nav-link[aria-current="page"] {
+  color: var(--color-heading);
+  font-weight: 600;
+  text-decoration: underline;
+}
+#site-footer .nav-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Meetings page: hide the "Meetings" archive heading (hidden, not removed) */
+body.post-type-archive-tsml_meeting h1 {
+  display: none !important;
+}
