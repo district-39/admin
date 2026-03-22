@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreMeetingsRequest;
-use App\Http\Requests\UpdateMeetingsRequest;
-use App\Models\Meetings;
+use App\Http\Requests\StoreMeetingRequest;
+use App\Http\Requests\UpdateMeetingRequest;
+use App\Models\Meeting;
 
-class MeetingsController extends Controller
+class MeetingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class MeetingsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMeetingsRequest $request)
+    public function store(StoreMeetingRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class MeetingsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Meetings $meetings)
+    public function show(Meeting $meeting)
     {
         //
     }
@@ -43,7 +43,7 @@ class MeetingsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Meetings $meetings)
+    public function edit(Meeting $meeting)
     {
         //
     }
@@ -51,7 +51,7 @@ class MeetingsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMeetingsRequest $request, Meetings $meetings)
+    public function update(UpdateMeetingRequest $request, Meeting $meeting)
     {
         //
     }
@@ -59,7 +59,7 @@ class MeetingsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Meetings $meetings)
+    public function destroy(Meeting $meeting)
     {
         //
     }

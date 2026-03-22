@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Meetings;
+use App\Models\Meeting;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
-class MeetingsPolicy
+class MeetingPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +18,7 @@ class MeetingsPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Meetings $meetings): bool
+    public function view(User $user, Meeting $meeting): bool
     {
         return false;
     }
@@ -35,7 +34,7 @@ class MeetingsPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Meetings $meetings): bool
+    public function update(User $user, Meeting $meeting): bool
     {
         return false;
     }
@@ -43,7 +42,7 @@ class MeetingsPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Meetings $meetings): bool
+    public function delete(User $user, Meeting $meeting): bool
     {
         return false;
     }
@@ -51,7 +50,7 @@ class MeetingsPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Meetings $meetings): bool
+    public function restore(User $user, Meeting $meeting): bool
     {
         return false;
     }
@@ -59,7 +58,7 @@ class MeetingsPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Meetings $meetings): bool
+    public function forceDelete(User $user, Meeting $meeting): bool
     {
         return false;
     }

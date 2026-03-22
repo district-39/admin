@@ -3,13 +3,20 @@
 namespace App\Models;
 
 use App\Enums\MeetingType;
+use Database\Factories\MeetingFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Meetings extends Model
+class Meeting extends Model
 {
-    /** @use HasFactory<\Database\Factories\MeetingsFactory> */
+    /** @use HasFactory<MeetingFactory> */
     use HasFactory;
+
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class)->withPivot('notes')->withTimestamps();
+    }
 
     /**
      * @return array<string, string>

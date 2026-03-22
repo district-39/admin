@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Meetings;
+use App\Models\Meeting;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Meetings>
+ * @extends Factory<Meeting>
  */
-class MeetingsFactory extends Factory
+class MeetingFactory extends Factory
 {
     /**
      * Define the model's default state.
