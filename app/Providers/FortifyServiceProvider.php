@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\Invitation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -66,7 +67,34 @@ class FortifyServiceProvider extends ServiceProvider
             'status' => $request->session()->get('status'),
         ]));
 
-        Fortify::registerView(fn () => Inertia::render('auth/Register'));
+        Fortify::registerView(function (Request $request) {
+            $hasInvitationParams = $request->has('invitation') && $request->has('signature');
+
+            if (! $hasInvitationParams) {
+                return Inertia::render('auth/RegisterInvalid', [
+                    'reason' => 'missing',
+                ]);
+            }
+
+            if (! $request->hasValidSignature()) {
+                return Inertia::render('auth/RegisterInvalid', [
+                    'reason' => 'expired',
+                ]);
+            }
+
+            $invitation = Invitation::findOrFail($request->query('invitation'));
+
+            if ($invitation->isAccepted()) {
+                return Inertia::render('auth/RegisterInvalid', [
+                    'reason' => 'expired',
+                ]);
+            }
+
+            return Inertia::render('auth/Register', [
+                'invitation' => $invitation->id,
+                'email' => $invitation->email,
+            ]);
+        });
 
         Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/TwoFactorChallenge'));
 
