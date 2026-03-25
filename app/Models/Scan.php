@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Database\Factories\ScanFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Scan extends Model
 {
-    /** @use HasFactory<\Database\Factories\ScanFactory> */
+    /** @use HasFactory<ScanFactory> */
     use HasFactory;
 }

@@ -18,7 +18,8 @@ class CreateAdminUser extends Command
         $password = $this->option('password') ?? password('Enter a password for the admin user');
 
         $user = User::updateOrCreate(
-            ['email' => 'admin@d39aa.org'],
+            // Ensure this is a valid email and use a password without special characters (shell may interpret them)
+            ['email' => 'admin@d39.org'],
             [
                 'name' => 'Admin',
                 'password' => $password,
